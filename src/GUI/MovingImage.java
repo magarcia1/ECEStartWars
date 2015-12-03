@@ -1,3 +1,4 @@
+package GUI;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;

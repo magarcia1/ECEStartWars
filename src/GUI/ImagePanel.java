@@ -1,8 +1,11 @@
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.util.ArrayList;
+package GUI;
+//import javax.swing.*;
+import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import Logic.Game;
+import javax.swing.JComponent;
 
 import javax.swing.ImageIcon;
 
@@ -39,10 +42,11 @@ public class ImagePanel
           //Get the size of the image
       //Thoroughly make the size of the panel equal to the size of the image
       //(Various layout managers will try to mess with the size of things to fit everything)
-      setPreferredSize(size);
+//      setPreferredSize(size);
       setMinimumSize(size);
-      setMaximumSize(size);
-      setSize(size);
+//      setMaximumSize(size);
+//      setSize(size);
+      setPreferredSize(size);
 
       top = new ArrayList<MovingImage>();
       middle = new ArrayList<MovingImage>();
@@ -51,10 +55,6 @@ public class ImagePanel
       smoke = new ArrayList<MovingImage>();
     }
 
-  private void setPreferredSize(Dimension size) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	//This is called whenever the computer decides to repaint the window
   //It's a method in JPanel that I've overwritten to paint the background and foreground images

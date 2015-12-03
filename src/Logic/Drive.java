@@ -1,3 +1,5 @@
+package Logic;
+import GUI.GameGUI;
 
 public class Drive 
 {
