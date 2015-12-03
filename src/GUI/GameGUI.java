@@ -57,9 +57,9 @@ public class GameGUI implements MouseListener
 
     public GameGUI()
     {
-        NUMRECS = 28;
-        RECHEIGHT = 81;
-        RECWIDTH = 271;
+        NUMRECS = 35;
+        RECHEIGHT = 73;
+        RECWIDTH = 29;
         XPOS = 200;
         playedOnce = false;
         maxDistance = 0;
@@ -106,10 +106,10 @@ public class GameGUI implements MouseListener
     {
         if(!playedOnce)
         {
-            background = new JFrame("Helicopter Game"); 
+            background = new JFrame("Star Wars Game"); 
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes the program when the window is closed
             background.setResizable(false); //don't allow the user to resize the window
-            background.setSize(new Dimension(1500,1500));
+            background.setSize(new Dimension(1000,600));
             background.setVisible(true);
 
             back = new ImagePanel("background.JPG");
@@ -135,15 +135,15 @@ public class GameGUI implements MouseListener
         bottomrecs = new ArrayList<MovingImage>();
         smoke = new ArrayList<MovingImage>();
 
-        helicopter = new MovingImage("XWingFighter.jpg",XPOS,270);
+        helicopter = new MovingImage("XWingFighter.png",XPOS,270);
 
         for(int x = 0; x < NUMRECS; x++)
-            toprecs.add(new MovingImage("CeilingFloor.png",RECWIDTH*x,30));
+            toprecs.add(new MovingImage("CeilingFloor.png",RECWIDTH*x,10));
         for(int x = 0; x < NUMRECS; x++)
-            bottomrecs.add(new MovingImage("CeilingFloor.png",RECWIDTH*x,450));
+            bottomrecs.add(new MovingImage("CeilingFloor.png",RECWIDTH*x,501));
 
-        middlerecs.add(new MovingImage("Obstacle.jpg",1392,randomMidHeight()));
-        middlerecs.add(new MovingImage("Obstacle.jpg",1972,randomMidHeight()));
+        middlerecs.add(new MovingImage("CeilingFloor.png",1392,randomMidHeight()));
+        middlerecs.add(new MovingImage("CeilingFloor.png",1972,randomMidHeight()));
 
         drawRectangles();
     }
@@ -207,8 +207,8 @@ public class GameGUI implements MouseListener
     {
         for(int x = 0; x < (NUMRECS - 1); x++) //move all but the last rectangle 1 spot to the left
         {
-            toprecs.set(x,new MovingImage("Obstacle.jpg",RECWIDTH*x,toprecs.get(x+1).getY()));
-            bottomrecs.set(x,new MovingImage("Obstacle.jpg",RECWIDTH*x,bottomrecs.get(x+1).getY()));
+            toprecs.set(x,new MovingImage("CeilingFloor.png",RECWIDTH*x,toprecs.get(x+1).getY()));
+            bottomrecs.set(x,new MovingImage("CeilingFloor.png",RECWIDTH*x,bottomrecs.get(x+1).getY()));
         }
         lastRec();
     }
@@ -243,14 +243,14 @@ public class GameGUI implements MouseListener
 
     public void moveDown()
     {
-        toprecs.set((NUMRECS - 1),new MovingImage("Obstacle.jpg",RECWIDTH*(NUMRECS - 1),toprecs.get(26).getY() + moveIncrement));
-        bottomrecs.set((NUMRECS - 1),new MovingImage("Obstacle.jpg",RECWIDTH*(NUMRECS - 1),bottomrecs.get(26).getY() + moveIncrement));
+        toprecs.set((NUMRECS - 1),new MovingImage("CeilingFloor.png",RECWIDTH*(NUMRECS - 1),toprecs.get(26).getY() + moveIncrement));
+        bottomrecs.set((NUMRECS - 1),new MovingImage("CeilingFloor.png",RECWIDTH*(NUMRECS - 1),bottomrecs.get(26).getY() + moveIncrement));
     }
 
     public void moveUp()
     {
-        bottomrecs.set((NUMRECS - 1),new MovingImage("Obstacle.jpg",RECWIDTH*(NUMRECS - 1),bottomrecs.get(26).getY() - moveIncrement));
-        toprecs.set((NUMRECS - 1),new MovingImage("Obstacle.jpg",RECWIDTH*(NUMRECS - 1),toprecs.get(26).getY() - moveIncrement));
+        bottomrecs.set((NUMRECS - 1),new MovingImage("CeilingFloor.png",RECWIDTH*(NUMRECS - 1),bottomrecs.get(26).getY() - moveIncrement));
+        toprecs.set((NUMRECS - 1),new MovingImage("CeilingFloor.png",RECWIDTH*(NUMRECS - 1),toprecs.get(26).getY() - moveIncrement));
     }
 
     public int randomMidHeight()
@@ -275,13 +275,13 @@ public class GameGUI implements MouseListener
     {
         if(middlerecs.get(0).getX() > -1 * RECWIDTH)
         {
-            middlerecs.set(0,new MovingImage("Obstacle.jpg",middlerecs.get(0).getX() - (RECWIDTH/5), middlerecs.get(0).getY()));
-            middlerecs.set(1,new MovingImage("Obstacle.jpg",middlerecs.get(1).getX() - (RECWIDTH/5), middlerecs.get(1).getY()));
+            middlerecs.set(0,new MovingImage("CeilingFloor.png",middlerecs.get(0).getX() - (RECWIDTH/5), middlerecs.get(0).getY()));
+            middlerecs.set(1,new MovingImage("CeilingFloor.png",middlerecs.get(1).getX() - (RECWIDTH/5), middlerecs.get(1).getY()));
         }
         else
         {
-            middlerecs.set(0,new MovingImage("Obstacle.jpg",middlerecs.get(1).getX() - (RECWIDTH/5), middlerecs.get(1).getY()));
-            middlerecs.set(1,new MovingImage("Obstacle.jpg",middlerecs.get(0).getX() + 580,randomMidHeight()));
+            middlerecs.set(0,new MovingImage("CeilingFloor.png",middlerecs.get(1).getX() - (RECWIDTH/5), middlerecs.get(1).getY()));
+            middlerecs.set(1,new MovingImage("CeilingFloor.png",middlerecs.get(0).getX() + 580,randomMidHeight()));
         }
     }
 
@@ -329,7 +329,7 @@ public class GameGUI implements MouseListener
                 helicopter.setPosition(XPOS,(double)(helicopter.getY() - (.3 + upCount)));
             else
                 helicopter.setPosition(XPOS,(double)(helicopter.getY() - (1.2 + upCount)));
-            helicopter.setImage("upCopter.GIF");    
+            helicopter.setImage("XWingFighter.png");    
         }
         else
         {
@@ -337,7 +337,7 @@ public class GameGUI implements MouseListener
                 helicopter.setPosition(XPOS,(double)(helicopter.getY() + upCount));
             else
                 helicopter.setPosition(XPOS,(double)(helicopter.getY() + (1.2 + upCount)));
-            helicopter.setImage("XWingFighter.jpg");
+            helicopter.setImage("XWingFighter.png");
         }
         if(isHit())
             crash();
