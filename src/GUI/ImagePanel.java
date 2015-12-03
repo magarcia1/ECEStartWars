@@ -71,13 +71,13 @@ class ImagePanel extends JPanel {
      public void drawStrings(Graphics g)
      {
          g.setFont(new Font("Arial",Font.BOLD,20));
-        g.drawString("Distance: " + Driver2.distance,30,500);
+        g.drawString("Distance: " + GameGUI.distance,30,500);
         g.setFont(new Font("Arial",Font.BOLD,20));
-        if (Driver2.distance > Driver2.maxDistance)
-            g.drawString("Best: " + Driver2.distance,650,500);
+        if (GameGUI.distance > GameGUI.maxDistance)
+            g.drawString("Best: " + GameGUI.distance,650,500);
         else
-            g.drawString("Best: " + Driver2.maxDistance,650,500);
-        if(Driver2.paused)
+            g.drawString("Best: " + GameGUI.maxDistance,650,500);
+        if(GameGUI.paused)
         {
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("Chiller",Font.BOLD,72));
