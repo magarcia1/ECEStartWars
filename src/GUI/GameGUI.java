@@ -143,7 +143,7 @@ public class GameGUI implements MouseListener {
 
 		moveIncrement = 2;
 		numSmoke = 15;
-
+		
 		bar = new ArrayList<MovingImage>();//TODO:
 		recs = new ArrayList<MovingImage>();
 		//toprecs = new ArrayList<MovingImage>();
