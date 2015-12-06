@@ -66,9 +66,7 @@ public class GameGUI implements MouseListener {
 	private ArrayList<MovingImage> recs;
 	private ArrayList<MovingImage> smoke;
 	private MovingImage Fighter;
-
-	// private MP3 move = new MP3("StartWarsSound.mp3");
-
+	private ArrayList<MovingImage> bar;
 	public GameGUI() {
 		NUMRECS = 35; //number of rectangles we have in our borders 
 		RECHEIGHT = 73;
@@ -146,16 +144,18 @@ public class GameGUI implements MouseListener {
 		moveIncrement = 2;
 		numSmoke = 15;
 
+		bar = new ArrayList<MovingImage>();//TODO:
 		recs = new ArrayList<MovingImage>();
-		toprecs = new ArrayList<MovingImage>();
+		//toprecs = new ArrayList<MovingImage>();
 		middlerecs = new ArrayList<MovingImage>();
 		bottomrecs = new ArrayList<MovingImage>();
 		smoke = new ArrayList<MovingImage>();
 
 		Fighter = new MovingImage("XWingFighter.png", XPOS, 270);
-
-		for (int x = 0; x < NUMRECS; x++)
-			toprecs.add(new MovingImage("CeilingFloor.png", RECWIDTH * x, 10));
+		bar.add( new MovingImage("bar.jpg", 0, 0));
+		bar.add( new MovingImage("bar.jpg", 0, 501));
+//		for (int x = 0; x < NUMRECS; x++)
+//			toprecs.add(new MovingImage("CeilingFloor.png", RECWIDTH * x, 10));
 		for (int x = 0; x < NUMRECS; x++)
 			bottomrecs.add(new MovingImage("CeilingFloor.png", RECWIDTH * x, 501));
 
@@ -221,7 +221,7 @@ public class GameGUI implements MouseListener {
 				}
 			}
 			//Repaints the JFrame with the new information
-			back.updateImages(toprecs, middlerecs, bottomrecs, Fighter, smoke);
+			back.updateImages(toprecs, middlerecs, bottomrecs, Fighter, smoke, bar);
 		}
 	}
 
@@ -229,7 +229,7 @@ public class GameGUI implements MouseListener {
 		for (int x = 0; x < (NUMRECS - 1); x++) // move all but the last
 												// rectangle 1 spot to the left
 		{
-			toprecs.set(x, new MovingImage("CeilingFloor.png", RECWIDTH * x, toprecs.get(x + 1).getY()));
+			//toprecs.set(x, new MovingImage("CeilingFloor.png", RECWIDTH * x, toprecs.get(x + 1).getY()));
 			bottomrecs.set(x, new MovingImage("CeilingFloor.png", RECWIDTH * x, bottomrecs.get(x + 1).getY()));
 		}
 		lastRec();
@@ -238,7 +238,7 @@ public class GameGUI implements MouseListener {
 	public void lastRec() {
 		if (distance % 400 == 0)
 			moveIncrement++;
-		if (toprecs.get(26).getY() < 2) // if too high, move down
+		if (40 < 2) // if too high, move down
 			moveDown();
 		else if (bottomrecs.get(26).getY() > 463) // else if too low, move up
 			moveUp();
@@ -261,17 +261,17 @@ public class GameGUI implements MouseListener {
 	}
 
 	public void moveDown() {
-		toprecs.set((NUMRECS - 1),
-				new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1), toprecs.get(26).getY() + moveIncrement));
+//		toprecs.set((NUMRECS - 1),
+//				new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1), toprecs.get(26).getY() + moveIncrement));
 		bottomrecs.set((NUMRECS - 1), new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1),
 				bottomrecs.get(26).getY() + moveIncrement));
 	}
 
 	public void moveUp() {
-		bottomrecs.set((NUMRECS - 1), new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1),
-				bottomrecs.get(26).getY() - moveIncrement));
-		toprecs.set((NUMRECS - 1),
-				new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1), toprecs.get(26).getY() - moveIncrement));
+//		bottomrecs.set((NUMRECS - 1), new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1),
+//				bottomrecs.get(26).getY() - moveIncrement));
+//		toprecs.set((NUMRECS - 1),
+//				new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1), toprecs.get(26).getY() - moveIncrement));
 	}
 
 	public int randomMidHeight() {
@@ -279,8 +279,8 @@ public class GameGUI implements MouseListener {
 		int min = 0;
 
 		for (int x = 0; x < NUMRECS; x++) {
-			if (toprecs.get(x).getY() > min)
-				min = (int) toprecs.get(x).getY();
+//			if (toprecs.get(x).getY() > min)
+//				min = (int) toprecs.get(x).getY();
 			if (bottomrecs.get(x).getY() < max)
 				max = (int) bottomrecs.get(x).getY();
 		}
@@ -346,10 +346,10 @@ public class GameGUI implements MouseListener {
 			if (Fighter.getY() + 48 >= bottomrecs.get(x).getY())
 				return true;
 
-		for (int y = 3; y <= 7; y++)
-			//Determines the highest the ship can go
-			if (Fighter.getY() <= toprecs.get(y).getY() + RECHEIGHT)
-				return true;
+//		for (int y = 3; y <= 7; y++)
+//			//Determines the highest the ship can go
+//			if (Fighter.getY() <= toprecs.get(y).getY() + RECHEIGHT)
+//				return true;
 		for (int z = 0; z <= 1; z++)
 			if (isInMidRange(z))
 				return true;
