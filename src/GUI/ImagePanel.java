@@ -43,7 +43,6 @@ class ImagePanel extends JPanel {
 		setMaximumSize(size);
 		setSize(size);
 
-		top = new ArrayList<MovingImage>();
 		middle = new ArrayList<MovingImage>();
 		bottom = new ArrayList<MovingImage>();
 		bar = new ArrayList<MovingImage>();
@@ -59,8 +58,6 @@ class ImagePanel extends JPanel {
 		// corner of the panel
 		g.drawImage(background, 0, 0, null);
 		// Paint each image in the foreground where it should go
-//		for (MovingImage img : top)
-//			g.drawImage(img.getImage(), (int) (img.getX()), (int) (img.getY()), null);
 		for (MovingImage img : middle)
 			g.drawImage(img.getImage(), (int) (img.getX()), (int) (img.getY()), null);
 		for (MovingImage img : bottom)
@@ -97,12 +94,11 @@ class ImagePanel extends JPanel {
 
 	// Replaces the list of foreground images with the one given, and repaints
 	// the panel
-	public void updateImages(ArrayList<MovingImage> newTop, ArrayList<MovingImage> newMiddle,
-			ArrayList<MovingImage> newBottom, MovingImage newCopter, ArrayList<MovingImage> newSmoke, ArrayList<MovingImage> newBar) {
-		top = newTop;
+	public void updateImages(ArrayList<MovingImage> newMiddle,MovingImage newCopter, ArrayList<MovingImage> newSmoke, ArrayList<MovingImage> newBar) {
+
 		copter = newCopter;
 		middle = newMiddle;
-		bottom = newBottom;
+		//bottom = newBottom;
 		smoke = newSmoke;
 		bar = newBar;
 		repaint(); // This repaints stuff... you don't need to know how it works
