@@ -153,7 +153,7 @@ public class GameGUI implements MouseListener {
 		Fighter = new MovingImage("XWingFighter.png", XPOS, 270);
 		bar.add( new MovingImage("bar.jpg", 0, 0));
 		bar.add( new MovingImage("bar.jpg", 0, 501));
-		
+	
 		for (int x = 0; x < NUMRECS; x++)
 			bottomrecs.add(new MovingImage("CeilingFloor.png", RECWIDTH * x, 501));
 
