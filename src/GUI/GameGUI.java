@@ -188,12 +188,6 @@ public class GameGUI implements MouseListener {
 				distance++; // the more distance the more the points
 			}
 
-			/*
-			 * if(!paused && !crashed && started && System.currentTimeMillis() -
-			 * 1300 > lastSound) { lastSound = System.currentTimeMillis();
-			 * move.play(); }
-			 */
-
 			if (!paused && !crashed && started && System.currentTimeMillis() - 10> lastCopter) {
 				lastCopter = System.currentTimeMillis();
 				updateFighter();
@@ -345,7 +339,9 @@ public class GameGUI implements MouseListener {
 			//Determines the lowest the ship can go
 			if (Fighter.getY() + 48 >= bottomrecs.get(x).getY())
 				return true;
-
+		if (Fighter.getY() <= 70){
+			return true;
+		}
 //		for (int y = 3; y <= 7; y++)
 //			//Determines the highest the ship can go
 //			if (Fighter.getY() <= toprecs.get(y).getY() + RECHEIGHT)
