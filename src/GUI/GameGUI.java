@@ -68,7 +68,7 @@ public class GameGUI implements MouseListener {
 	private MovingImage Fighter;
 	private ArrayList<MovingImage> bar;
 	public GameGUI() {
-		NUM_OBSTACLES = 35; //number of rectangles we have in our borders 
+		NUM_OBSTACLES = 35; //number of bars we have in our borders 
 		OBSTACLE_HEIGHT = 73;
 		OBSTACLE_WIDTH = 29;
 		X_POSITION = 200;
@@ -162,10 +162,10 @@ public class GameGUI implements MouseListener {
 		middleObstacles.add(new MovingImage("CeilingFloor.png", 1392, randomMidHeight()));
 		middleObstacles.add(new MovingImage("CeilingFloor.png", 1972, randomMidHeight()));
 
-		drawRectangles();
+		drawObstacles();
 	}
 
-	public void drawRectangles() {
+	public void drawObstacles() {
 		long last = System.currentTimeMillis();
 		long lastCopter = System.currentTimeMillis();
 		long lastSmoke = System.currentTimeMillis();
