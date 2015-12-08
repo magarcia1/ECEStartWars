@@ -69,7 +69,7 @@ public class GameGUI implements MouseListener {
 	private ArrayList<MovingImage> bar;
 	public GameGUI() {
 		NUM_OBSTACLES = 35; //number of bars we have in our borders 
-		OBSTACLE_HEIGHT = 73;
+		OBSTACLE_HEIGHT = 125;
 		OBSTACLE_WIDTH = 29;
 		X_POSITION = 200;
 		playedOnce = false;
@@ -195,7 +195,7 @@ public class GameGUI implements MouseListener {
 			}
 			if (!paused && !crashed && started && System.currentTimeMillis() - 100 > last) {
 				last = System.currentTimeMillis();
-				updateRecs();
+				updateObstacles();
 			}
 			//controls the movement of the smoke in the fighter ship
 			if (!paused && !crashed && started && System.currentTimeMillis() - 75 > lastSmoke) {
@@ -219,17 +219,17 @@ public class GameGUI implements MouseListener {
 		}
 	}
 
-	public void updateRecs() {
+	public void updateObstacles() {
 		for (int x = 0; x < (NUM_OBSTACLES - 1); x++) // move all but the last
 												// rectangle 1 spot to the left
 		{
 			//topObstacles.set(x, new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, topObstacles.get(x + 1).getY()));
 			bottomObstacles.set(x, new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, bottomObstacles.get(x + 1).getY()));
 		}
-		lastRec();
+		lastObstacle();
 	}
 
-	public void lastRec() {
+	public void lastObstacle() {
 		if (distance % 400 == 0)
 			moveIncrement++;
 		if (40 < 2) // if too high, move down
