@@ -54,8 +54,8 @@ public class GameGUI implements MouseListener {
 
 	public final int XPOS;
 	public final int NUMRECS;
-	public final int RECHEIGHT;
-	public final int RECWIDTH;
+	public final int OBSTACLE_HEIGHT;
+	public final int OBSTACLE_WIDTH;
 
 	private int moveIncrement;
 	private int numSmoke;
@@ -69,8 +69,8 @@ public class GameGUI implements MouseListener {
 	private ArrayList<MovingImage> bar;
 	public GameGUI() {
 		NUMRECS = 35; //number of rectangles we have in our borders 
-		RECHEIGHT = 73;
-		RECWIDTH = 29;
+		OBSTACLE_HEIGHT = 73;
+		OBSTACLE_WIDTH = 29;
 		XPOS = 200;
 		playedOnce = false;
 		maxDistance = 0;
@@ -144,8 +144,9 @@ public class GameGUI implements MouseListener {
 		moveIncrement = 2;
 		numSmoke = 15;
 		
-		bar = new ArrayList<MovingImage>();
+		bar = new ArrayList<MovingImage>();//TODO:
 		recs = new ArrayList<MovingImage>();
+		//toprecs = new ArrayList<MovingImage>();
 		middlerecs = new ArrayList<MovingImage>();
 		bottomrecs = new ArrayList<MovingImage>();
 		smoke = new ArrayList<MovingImage>();
@@ -153,9 +154,10 @@ public class GameGUI implements MouseListener {
 		Fighter = new MovingImage("XWingFighter.png", XPOS, 270);
 		bar.add( new MovingImage("bar.jpg", 0, 0));
 		bar.add( new MovingImage("bar.jpg", 0, 501));
-	
+//		for (int x = 0; x < NUMRECS; x++)
+//			toprecs.add(new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, 10));
 		for (int x = 0; x < NUMRECS; x++)
-			bottomrecs.add(new MovingImage("CeilingFloor.png", RECWIDTH * x, 501));
+			bottomrecs.add(new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, 501));
 
 		middlerecs.add(new MovingImage("CeilingFloor.png", 1392, randomMidHeight()));
 		middlerecs.add(new MovingImage("CeilingFloor.png", 1972, randomMidHeight()));
@@ -213,7 +215,7 @@ public class GameGUI implements MouseListener {
 				}
 			}
 			//Repaints the JFrame with the new information
-			back.updateImages(middlerecs,Fighter, smoke, bar);
+			back.updateImages(middlerecs, Fighter, smoke, bar);
 		}
 	}
 
@@ -221,7 +223,8 @@ public class GameGUI implements MouseListener {
 		for (int x = 0; x < (NUMRECS - 1); x++) // move all but the last
 												// rectangle 1 spot to the left
 		{
-			bottomrecs.set(x, new MovingImage("CeilingFloor.png", RECWIDTH * x, bottomrecs.get(x + 1).getY()));
+			//toprecs.set(x, new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, toprecs.get(x + 1).getY()));
+			bottomrecs.set(x, new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, bottomrecs.get(x + 1).getY()));
 		}
 		lastRec();
 	}
@@ -253,16 +256,16 @@ public class GameGUI implements MouseListener {
 
 	public void moveDown() {
 //		toprecs.set((NUMRECS - 1),
-//				new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1), toprecs.get(26).getY() + moveIncrement));
-		bottomrecs.set((NUMRECS - 1), new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1),
+//				new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * (NUMRECS - 1), toprecs.get(26).getY() + moveIncrement));
+		bottomrecs.set((NUMRECS - 1), new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * (NUMRECS - 1),
 				bottomrecs.get(26).getY() + moveIncrement));
 	}
 
 	public void moveUp() {
-//		bottomrecs.set((NUMRECS - 1), new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1),
+//		bottomrecs.set((NUMRECS - 1), new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * (NUMRECS - 1),
 //				bottomrecs.get(26).getY() - moveIncrement));
 //		toprecs.set((NUMRECS - 1),
-//				new MovingImage("CeilingFloor.png", RECWIDTH * (NUMRECS - 1), toprecs.get(26).getY() - moveIncrement));
+//				new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * (NUMRECS - 1), toprecs.get(26).getY() - moveIncrement));
 	}
 
 	public int randomMidHeight() {
@@ -270,23 +273,25 @@ public class GameGUI implements MouseListener {
 		int min = 0;
 
 		for (int x = 0; x < NUMRECS; x++) {
+//			if (toprecs.get(x).getY() > min)
+//				min = (int) toprecs.get(x).getY();
 			if (bottomrecs.get(x).getY() < max)
 				max = (int) bottomrecs.get(x).getY();
 		}
-		min += RECHEIGHT;
-		max -= (RECHEIGHT + min);
+		min += OBSTACLE_HEIGHT;
+		max -= (OBSTACLE_HEIGHT + min);
 		return min + (int) (Math.random() * max);
 	}
 
 	// moves the randomly generated middle rectangles
 	public void updateMiddle() {
-		if (middlerecs.get(0).getX() > -1 * RECWIDTH) {
-			middlerecs.set(0, new MovingImage("CeilingFloor.png", middlerecs.get(0).getX() - (RECWIDTH / 5),
+		if (middlerecs.get(0).getX() > -1 * OBSTACLE_WIDTH) {
+			middlerecs.set(0, new MovingImage("CeilingFloor.png", middlerecs.get(0).getX() - (OBSTACLE_WIDTH / 5),
 					middlerecs.get(0).getY()));
-			middlerecs.set(1, new MovingImage("CeilingFloor.png", middlerecs.get(1).getX() - (RECWIDTH / 5),
+			middlerecs.set(1, new MovingImage("CeilingFloor.png", middlerecs.get(1).getX() - (OBSTACLE_WIDTH / 5),
 					middlerecs.get(1).getY()));
 		} else {
-			middlerecs.set(0, new MovingImage("CeilingFloor.png", middlerecs.get(1).getX() - (RECWIDTH / 5),
+			middlerecs.set(0, new MovingImage("CeilingFloor.png", middlerecs.get(1).getX() - (OBSTACLE_WIDTH / 5),
 					middlerecs.get(1).getY()));
 			middlerecs.set(1, new MovingImage("CeilingFloor.png", middlerecs.get(0).getX() + 580, randomMidHeight()));
 		}
@@ -294,7 +299,7 @@ public class GameGUI implements MouseListener {
 
 	public boolean isInMidRange(int num) {
 		Rectangle middlecheck = new Rectangle((int) middlerecs.get(num).getX(), (int) middlerecs.get(num).getY(),
-				RECWIDTH, RECHEIGHT);
+				OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
 		Rectangle coptercheck = new Rectangle((int) Fighter.getX(), (int) Fighter.getY(), 106, 48);
 		return middlecheck.intersects(coptercheck);
 	}
@@ -337,7 +342,10 @@ public class GameGUI implements MouseListener {
 		if (Fighter.getY() <= 70){
 			return true;
 		}
-
+//		for (int y = 3; y <= 7; y++)
+//			//Determines the highest the ship can go
+//			if (Fighter.getY() <= toprecs.get(y).getY() + OBSTACLE_HEIGHT)
+//				return true;
 		for (int z = 0; z <= 1; z++)
 			if (isInMidRange(z))
 				return true;
