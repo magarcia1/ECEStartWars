@@ -90,6 +90,20 @@ class ImagePanel extends JPanel {
 			g.setFont(new Font("Chiller", Font.BOLD, 30));
 			g.drawString("Click to unpause.", 320, 340);
 		}
+		g.setFont(new Font("Arial", Font.BOLD, 20));
+		g.setColor(Color.WHITE);
+		if (GameGUI.distance < 200){
+			g.drawString("Rank: Youngling", 400, 540);
+		}
+		else if (GameGUI.distance >= 200 && GameGUI.distance < 500){
+			g.drawString("Rank: Padawan", 400, 540);
+		}
+		else if(GameGUI.distance >= 500 && GameGUI.distance < 1000){
+			g.drawString("Rank: Jedi Knight", 400, 540);
+		}
+		else {
+			g.drawString("Rank: Jedi Master", 400, 540);
+		}
 	}
 
 	// Replaces the list of foreground images with the one given, and repaints
