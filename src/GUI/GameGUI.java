@@ -188,7 +188,7 @@ public class GameGUI implements MouseListener {
 				distance++; // the more distance the more the points
 			}
 
-			if (!paused && !crashed && started && System.currentTimeMillis() - 10> lastCopter) {
+			if (!paused && !crashed && started && System.currentTimeMillis() - 8 > lastCopter) {
 				lastCopter = System.currentTimeMillis();
 				updateFighter();
 				updateMiddle();
