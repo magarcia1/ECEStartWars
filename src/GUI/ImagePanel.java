@@ -100,31 +100,25 @@ class ImagePanel extends JPanel {
         }
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setColor(Color.WHITE);
-        g.drawString(getRank(GameGUI.distance), 450, 540);
-    }
-    
-	//This will return the rank of the player based on the Score achieved
-	private String getRank(int distance) {
-		String theRank;
-		if (distance < 200){
+        if (GameGUI.distance < 200){
             theRank = "Youngling";
-            return theRank;
+            g.drawString("Rank: " + theRank, 400, 540);
         }
-        else if (distance >= 200 && distance < 500){
+        else if (GameGUI.distance >= 200 && GameGUI.distance < 1000){
             theRank = "Padawan";
-            return theRank;
+            g.drawString("Rank: " + theRank, 400, 540);
         }
-        else if (distance >= 1000 && distance < 3000){
+        else if (GameGUI.distance >= 1000 && GameGUI.distance < 3000){
             theRank = "Jedi Knight";
-            return theRank;
+            g.drawString("Rank: " + theRank, 400, 540);
         }
         else {
             theRank = "Jedi Master";
-            return theRank;
+            g.drawString("Rank: " + theRank, 400, 540);
         }
-	}
-
-	// Replaces the list of foreground images with the one given, and repaints
+    }
+    
+    // Replaces the list of foreground images with the one given, and repaints
     // the panel
     public void updateImages(ArrayList<MovingImage> newMiddle,MovingImage newFighter, ArrayList<MovingImage> newSmoke, ArrayList<MovingImage> newBar) {
         

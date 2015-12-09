@@ -285,7 +285,7 @@ public class GameGUI implements MouseListener {
             theRank = "Youngling";
             return theRank;
         }
-        else if (maxDistance >= 200 && maxDistance < 500){
+        else if (maxDistance >= 200 && maxDistance < 1000){
             theRank = "Padawan";
             return theRank;
         }
