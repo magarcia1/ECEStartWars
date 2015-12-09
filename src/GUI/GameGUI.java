@@ -333,9 +333,25 @@ public class GameGUI implements MouseListener {
 		initiate();
 	}
 
-	private String getRank(int maxDistance2) {
+	private String getRank(int maxDistance) {
+		String theRank;
 		// TODO Auto-generated method stub
-		return null;
+		if (maxDistance < 200){
+            theRank = "Youngling";
+            return theRank;
+        }
+        else if (maxDistance >= 200 && maxDistance < 500){
+            theRank = "Padawan";
+            return theRank;
+        }
+        else if (maxDistance >= 500 && maxDistance < 1000){
+            theRank = "Jedi Knight";
+            return theRank;
+        }
+        else {
+            theRank = "Jedi Master";
+            return theRank;
+        }
 	}
 
 	public boolean isHit() {
