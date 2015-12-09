@@ -82,7 +82,7 @@ public class GameGUI implements MouseListener {
 			Scanner reader = new Scanner(file);
 			while (reader.hasNext()) {
 				int value = reader.nextInt();
-				String theRank = reader.next();
+				String theRank = reader.nextLine();
 				if (value > maxDistance) {
 					maxDistance = value;
 					maxRank = theRank;
@@ -93,7 +93,7 @@ public class GameGUI implements MouseListener {
 		}
 	}
 
-	//Save the newest high score to the "Best.txt" file
+	//Save the newest high score and rank to the "Best.txt" file
 	public void save() {
 		FileWriter out;
 		try {
@@ -122,7 +122,7 @@ public class GameGUI implements MouseListener {
 																		// closed
 			background.setResizable(false); // don't allow the user to resize
 											// the window
-			background.setSize(new Dimension(1000, 600)); // The dimensions of
+			background.setSize(new Dimension(1100, 600)); // The dimensions of
 															// the Frame
 			background.setVisible(true);
 
@@ -263,7 +263,7 @@ public class GameGUI implements MouseListener {
 
 	public int randomMidHeight() {
 		int max = 500; //Bottom of playable screen
-		int min = 0;  //Top of playable screen
+		int min = -20;  //Top of playable screen
 
 //		for (int x = 0; x < NUM_OBSTACLES; x++) {
 ////			if (topObstacles.get(x).getY() > min)

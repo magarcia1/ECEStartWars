@@ -21,7 +21,7 @@ class ImagePanel extends JPanel {
     private MovingImage fighter;
     private ArrayList<MovingImage> smoke;
     private ArrayList<MovingImage> bar;
-    String theRank = "";
+    public String theRank = "";
     
     // Constructs a new ImagePanel with the background image specified by the
     // file path given
