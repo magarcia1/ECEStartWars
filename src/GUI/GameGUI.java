@@ -2,7 +2,7 @@
 
 /*
 * File: GameGUI
-* Author: Miguel A. Garcia, Philip Showers, Fonji 
+* Author: Miguel A. Garcia, Philip Showers, Tembong Fonji 
 * NetID: magarcia1
 * Date: December 5, 2015
 *
@@ -18,7 +18,6 @@ package GUI;
 
 /**************************************************************************************************/
 
-//import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
@@ -29,7 +28,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**************************************************************************************************/
@@ -51,8 +49,8 @@ public class GameGUI implements MouseListener {
 	public static int maxDistance;
 	public static String maxRank;
 
+	//Constants used in the GUI 
 	public final int X_POSITION;
-	public final int NUM_OBSTACLES;
 	public final int OBSTACLE_HEIGHT;
 	public final int OBSTACLE_WIDTH;
 
@@ -63,7 +61,6 @@ public class GameGUI implements MouseListener {
 	private MovingImage Fighter;
 	private ArrayList<MovingImage> bar;
 	public GameGUI() {
-		NUM_OBSTACLES = 35; //number of bars we have in our borders 
 		OBSTACLE_HEIGHT = 125;
 		OBSTACLE_WIDTH = 29;
 		X_POSITION = 200;
@@ -81,8 +78,10 @@ public class GameGUI implements MouseListener {
 			@SuppressWarnings("resource")
 			Scanner reader = new Scanner(file);
 			while (reader.hasNext()) {
-				int value = reader.nextInt();
-				String theRank = reader.nextLine();
+				int value = reader.nextInt();  //Read in the high score
+				String theRank = reader.nextLine();  //Read in the Highest Rank 
+				
+				//Set new high score and rank
 				if (value > maxDistance) {
 					maxDistance = value;
 					maxRank = theRank;
@@ -131,6 +130,8 @@ public class GameGUI implements MouseListener {
 
 			back.addMouseListener(this);
 		}
+		
+		//Initialize all of the global variables
 		playedOnce = true;
 		goingUp = false;
 		paused = false;
@@ -139,10 +140,9 @@ public class GameGUI implements MouseListener {
 
 		distance = 0;
 		upCount = 0.0;
-
 		numSmoke = 15;
 		
-		bar = new ArrayList<MovingImage>();//TODO:
+		bar = new ArrayList<MovingImage>();
 		obstacles = new ArrayList<MovingImage>();
 		obstacles = new ArrayList<MovingImage>();
 		smoke = new ArrayList<MovingImage>();
@@ -185,10 +185,7 @@ public class GameGUI implements MouseListener {
 					updateFighter();
 					updateMiddle();
 				}
-//				if ((double) System.currentTimeMillis() - 100 > obstacleTimeCounter) {
-//					obstacleTimeCounter = System.currentTimeMillis();
-//					updateObstacles();
-//				}
+
 				//controls the movement of the smoke in the fighter ship
 				if ((double) System.currentTimeMillis() - 60 > lastSmoke) {
 					lastSmoke = System.currentTimeMillis();
@@ -212,72 +209,17 @@ public class GameGUI implements MouseListener {
 		}
 	}
 
-//	public void updateObstacles() {
-//		for (int x = 0; x < (NUM_OBSTACLES - 1); x++) // move all but the last
-//												// rectangle 1 spot to the left
-//		{
-//			//topObstacles.set(x, new MovingImage("Obstacle.png", OBSTACLE_WIDTH * x, topObstacles.get(x + 1).getY()));
-//			bottomObstacles.set(x, new MovingImage("Obstacle.png", OBSTACLE_WIDTH * x, bottomObstacles.get(x + 1).getY()));
-//		}
-//		lastObstacle();
-//	}
-
-//	public void lastObstacle() {
-//		if (distance % 400 == 0)
-//			moveIncrement++;
-//		if (40 < 2) // if too high, move down
-//			moveDown();
-//		else if (bottomObstacles.get(26).getY() > 463) // else if too low, move up
-//			moveUp();
-//		else // else move randomly
-//		{
-//			if ((int) (Math.random() * 60) == 50)
-//				randomDrop();
-//			else {
-//				if ((int) (Math.random() * 2) == 1)
-//					moveUp();
-//				else
-//					moveDown();
-//			}
-//		}
-//	}
-
-//	public void randomDrop() {
-//		topObstacles.get(26).setY(topObstacles.get(26).getY() + (463 - bottomObstacles.get(26).getY()));
-//		bottomObstacles.get(26).setY(463);
-//	}
-
-//	public void moveDown() {
-////		topObstacles.set((NUM_OBSTACLES - 1),
-////				new MovingImage("Obstacle.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1), topObstacles.get(26).getY() + moveIncrement));
-//		bottomObstacles.set((NUM_OBSTACLES - 1), new MovingImage("Obstacle.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1),
-//				bottomObstacles.get(26).getY() + moveIncrement));
-//	}
-
-//	public void moveUp() {
-////		bottomObstacles.set((NUM_OBSTACLES - 1), new MovingImage("Obstacle.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1),
-////				bottomObstacles.get(26).getY() - moveIncrement));
-////		topObstacles.set((NUM_OBSTACLES - 1),
-////				new MovingImage("Obstacle.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1), topObstacles.get(26).getY() - moveIncrement));
-//	}
-
 	public int randomMidHeight() {
 		int max = 500; //Bottom of playable screen
 		int min = -20;  //Top of playable screen
 
-//		for (int x = 0; x < NUM_OBSTACLES; x++) {
-////			if (topObstacles.get(x).getY() > min)
-////				min = (int) topObstacles.get(x).getY();
-//			if (bottomObstacles.get(x).getY() < max)
-//				max = (int) bottomObstacles.get(x).getY();
-//		}
 		min += OBSTACLE_HEIGHT;
 		max -= (OBSTACLE_HEIGHT + min);
 		return min + (int) (Math.random() * max);
 	}
 
 	// moves the randomly generated middle obstacles.
-	//Use a linear eq that constantly makes the obstacles get genereated faster.
+	//Use a linear equation that constantly makes the obstacles get generated faster.
 	//As distance increases, the difficulty increases.
 	public void updateMiddle() {
 		if (obstacles.get(0).getX() > -1 * OBSTACLE_WIDTH) {
@@ -322,6 +264,8 @@ public class GameGUI implements MouseListener {
 			crash();
 	}
 
+	//This is called if the fighter crashes into an obstacle.
+	//It will set the new high score if applicable and save it to Best.txt
 	public void crash() {
 		crashed = true;
 		if (distance > maxDistance) {
@@ -330,12 +274,13 @@ public class GameGUI implements MouseListener {
 			save();
 		}
 
+		//Re-initiate the game. (Start new game)
 		initiate();
 	}
 
+	//This will return the rank of the player based on the Score achieved
 	private String getRank(int maxDistance) {
 		String theRank;
-		// TODO Auto-generated method stub
 		if (maxDistance < 200){
             theRank = "Youngling";
             return theRank;
@@ -344,7 +289,7 @@ public class GameGUI implements MouseListener {
             theRank = "Padawan";
             return theRank;
         }
-        else if (maxDistance >= 500 && maxDistance < 1000){
+        else if (maxDistance >= 1000 && maxDistance < 3000){
             theRank = "Jedi Knight";
             return theRank;
         }
@@ -354,12 +299,11 @@ public class GameGUI implements MouseListener {
         }
 	}
 
-	public boolean isHit() {
-//		for (int x = 3; x <= 7; x++)
-			//Determines the lowest the ship can go
-//			if (Fighter.getY() + 48 >= bottomObstacles.get(x).getY())
-//				return true;
-			
+	//Checks to see if the fighterShip has the same coordinates as the bottom of the 
+	//GUI screen or the top of the GUI screen. 
+	//It also checks to see if it has the same coordinates as an obstacle.
+	//If any are true, the ship is hit, and the crash sequence starts.
+	public boolean isHit() {	
 		if (Fighter.getY() <= 70){
 			return true;
 		}
@@ -367,13 +311,11 @@ public class GameGUI implements MouseListener {
 		if (Fighter.getY() >= 455){
 			return true;
 		}
-//		for (int y = 3; y <= 7; y++)
-//			//Determines the highest the ship can go
-//			if (Fighter.getY() <= topObstacles.get(y).getY() + OBSTACLE_HEIGHT)
-//				return true;
-		for (int z = 0; z <= 1; z++)
-			if (isInMidRange(z))
-				return true;
+		
+		for (int i = 0; i <= 1; i++)
+		{
+			if (isInMidRange(i)) return true;
+		}
 		return false;
 	}
 
@@ -382,7 +324,6 @@ public class GameGUI implements MouseListener {
 
 		if (started) {
 			paused = true;
-			// move.close();
 		}
 
 	}

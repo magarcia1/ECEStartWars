@@ -14,8 +14,11 @@ import GUI.MovingImage;
 
 class ImagePanel extends JPanel {
     
-    private Image background; // The background image
-    private ArrayList<MovingImage> top; // An array list of foreground images
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Image background; // The background image
     private ArrayList<MovingImage> bottom;
     private ArrayList<MovingImage> middle;
     private MovingImage fighter;
@@ -97,33 +100,38 @@ class ImagePanel extends JPanel {
         }
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setColor(Color.WHITE);
-        if (GameGUI.distance < 200){
+        g.drawString(getRank(GameGUI.distance), 450, 540);
+    }
+    
+	//This will return the rank of the player based on the Score achieved
+	private String getRank(int distance) {
+		String theRank;
+		if (distance < 200){
             theRank = "Youngling";
-            g.drawString("Rank: " + theRank, 400, 540);
+            return theRank;
         }
-        else if (GameGUI.distance >= 200 && GameGUI.distance < 500){
+        else if (distance >= 200 && distance < 500){
             theRank = "Padawan";
-            g.drawString("Rank: " + theRank, 400, 540);
+            return theRank;
         }
-        else if (GameGUI.distance >= 500 && GameGUI.distance < 1000){
+        else if (distance >= 1000 && distance < 3000){
             theRank = "Jedi Knight";
-            g.drawString("Rank: " + theRank, 400, 540);
+            return theRank;
         }
         else {
             theRank = "Jedi Master";
-            g.drawString("Rank: " + theRank, 400, 540);
+            return theRank;
         }
-    }
-    
-    // Replaces the list of foreground images with the one given, and repaints
+	}
+
+	// Replaces the list of foreground images with the one given, and repaints
     // the panel
     public void updateImages(ArrayList<MovingImage> newMiddle,MovingImage newFighter, ArrayList<MovingImage> newSmoke, ArrayList<MovingImage> newBar) {
         
         fighter = newFighter;
         middle = newMiddle;
-        //bottom = newBottom;
         smoke = newSmoke;
         bar = newBar;
-        repaint(); // This repaints stuff... you don't need to know how it works
+        repaint(); // Repaint the GUI
     }
 }
