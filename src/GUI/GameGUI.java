@@ -326,10 +326,16 @@ public class GameGUI implements MouseListener {
 		crashed = true;
 		if (distance > maxDistance) {
 			maxDistance = distance;
+			maxRank = getRank(maxDistance);
 			save();
 		}
 
 		initiate();
+	}
+
+	private String getRank(int maxDistance2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public boolean isHit() {
