@@ -81,14 +81,12 @@ class ImagePanel extends JPanel {
 		g.setFont(new Font("Arial", Font.BOLD, 20));
 		g.setColor(Color.WHITE);
 		if (GameGUI.distance > GameGUI.maxDistance){
-			g.drawString("Best: " + GameGUI.distance, 850, 500);
-			g.drawString("Rank: " + GameGUI.maxRank, 850, 540);
-
-			
+			g.drawString("Best: " + GameGUI.distance, 850, 520);
+			g.drawString("Rank: " + theRank, 850, 550);
 		}
 		else{
-			g.drawString("Best: " + GameGUI.maxDistance, 850, 500);
-			g.drawString("Rank: " + theRank, 850, 540);
+			g.drawString("Best: " + GameGUI.maxDistance, 850, 520);
+			g.drawString("Rank: " + GameGUI.maxRank, 850, 550);
 		}
 		if (GameGUI.paused) {
 			g.setColor(Color.WHITE);
