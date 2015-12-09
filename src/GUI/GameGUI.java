@@ -62,8 +62,7 @@ public class GameGUI implements MouseListener {
 
 	private ArrayList<MovingImage> topObstacles;
 	private ArrayList<MovingImage> bottomObstacles;
-	private ArrayList<MovingImage> middleObstacles;
-	private ArrayList<MovingImage> Obstacles;
+	private ArrayList<MovingImage> obstacles;
 	private ArrayList<MovingImage> smoke;
 	private MovingImage Fighter;
 	private ArrayList<MovingImage> bar;
@@ -139,15 +138,15 @@ public class GameGUI implements MouseListener {
 		started = false;
 
 		distance = 0;
-		upCount = 0;
+		upCount = 0.0;
 
 		moveIncrement = 2;
 		numSmoke = 15;
 		
 		bar = new ArrayList<MovingImage>();//TODO:
-		Obstacles = new ArrayList<MovingImage>();
+		obstacles = new ArrayList<MovingImage>();
 		//topObstacles = new ArrayList<MovingImage>();
-		middleObstacles = new ArrayList<MovingImage>();
+		obstacles = new ArrayList<MovingImage>();
 		bottomObstacles = new ArrayList<MovingImage>();
 		smoke = new ArrayList<MovingImage>();
 
@@ -155,18 +154,18 @@ public class GameGUI implements MouseListener {
 		bar.add( new MovingImage("bar.jpg", 0, 0));
 		bar.add( new MovingImage("bar.jpg", 0, 501));
 //		for (int x = 0; x < NUM_OBSTACLES; x++)
-//			topObstacles.add(new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, 10));
+//			topObstacles.add(new MovingImage("Obstacle.png", OBSTACLE_WIDTH * x, 10));
 		for (int x = 0; x < NUM_OBSTACLES; x++)
-			bottomObstacles.add(new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, 501));
+			bottomObstacles.add(new MovingImage("Obstacle.png", OBSTACLE_WIDTH * x, 501));
 
-		middleObstacles.add(new MovingImage("CeilingFloor.png", 1392, randomMidHeight()));
-		middleObstacles.add(new MovingImage("CeilingFloor.png", 1972, randomMidHeight()));
+		obstacles.add(new MovingImage("Obstacle.png", 1392, randomMidHeight()));
+		obstacles.add(new MovingImage("Obstacle.png", 1972, randomMidHeight()));
 
 		drawObstacles();
 	}
 
 	public void drawObstacles() {
-		long obstacleTimeCounter = System.currentTimeMillis();
+//		long obstacleTimeCounter = System.currentTimeMillis();
 		long lastCopter = System.currentTimeMillis();
 		long lastSmoke = System.currentTimeMillis();
 		// long lastSound = System.currentTimeMillis();
@@ -189,17 +188,17 @@ public class GameGUI implements MouseListener {
 					distance++; // the more distance the more the points
 				}
 
-				if (System.currentTimeMillis() - 8 > lastCopter) {
+				if ((double) System.currentTimeMillis() - 8 > lastCopter) {
 					lastCopter = System.currentTimeMillis();
 					updateFighter();
 					updateMiddle();
 				}
-				if (System.currentTimeMillis() - 100 > obstacleTimeCounter) {
-					obstacleTimeCounter = System.currentTimeMillis();
-					updateObstacles();
-				}
+//				if ((double) System.currentTimeMillis() - 100 > obstacleTimeCounter) {
+//					obstacleTimeCounter = System.currentTimeMillis();
+//					updateObstacles();
+//				}
 				//controls the movement of the smoke in the fighter ship
-				if (System.currentTimeMillis() - 75 > lastSmoke) {
+				if ((double) System.currentTimeMillis() - 60 > lastSmoke) {
 					lastSmoke = System.currentTimeMillis();
 					if (firstUpdates < numSmoke) {
 						firstUpdates++;
@@ -217,58 +216,58 @@ public class GameGUI implements MouseListener {
 				}
 			}
 			//Repaints the JFrame with the new information
-			back.updateImages(middleObstacles, Fighter, smoke, bar);
+			back.updateImages(obstacles, Fighter, smoke, bar);
 		}
 	}
 
-	public void updateObstacles() {
-		for (int x = 0; x < (NUM_OBSTACLES - 1); x++) // move all but the last
-												// rectangle 1 spot to the left
-		{
-			//topObstacles.set(x, new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, topObstacles.get(x + 1).getY()));
-			bottomObstacles.set(x, new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * x, bottomObstacles.get(x + 1).getY()));
-		}
-		lastObstacle();
-	}
+//	public void updateObstacles() {
+//		for (int x = 0; x < (NUM_OBSTACLES - 1); x++) // move all but the last
+//												// rectangle 1 spot to the left
+//		{
+//			//topObstacles.set(x, new MovingImage("Obstacle.png", OBSTACLE_WIDTH * x, topObstacles.get(x + 1).getY()));
+//			bottomObstacles.set(x, new MovingImage("Obstacle.png", OBSTACLE_WIDTH * x, bottomObstacles.get(x + 1).getY()));
+//		}
+//		lastObstacle();
+//	}
 
-	public void lastObstacle() {
-		if (distance % 400 == 0)
-			moveIncrement++;
-		if (40 < 2) // if too high, move down
-			moveDown();
-		else if (bottomObstacles.get(26).getY() > 463) // else if too low, move up
-			moveUp();
-		else // else move randomly
-		{
-			if ((int) (Math.random() * 60) == 50)
-				randomDrop();
-			else {
-				if ((int) (Math.random() * 2) == 1)
-					moveUp();
-				else
-					moveDown();
-			}
-		}
-	}
+//	public void lastObstacle() {
+//		if (distance % 400 == 0)
+//			moveIncrement++;
+//		if (40 < 2) // if too high, move down
+//			moveDown();
+//		else if (bottomObstacles.get(26).getY() > 463) // else if too low, move up
+//			moveUp();
+//		else // else move randomly
+//		{
+//			if ((int) (Math.random() * 60) == 50)
+//				randomDrop();
+//			else {
+//				if ((int) (Math.random() * 2) == 1)
+//					moveUp();
+//				else
+//					moveDown();
+//			}
+//		}
+//	}
 
-	public void randomDrop() {
-		topObstacles.get(26).setY(topObstacles.get(26).getY() + (463 - bottomObstacles.get(26).getY()));
-		bottomObstacles.get(26).setY(463);
-	}
+//	public void randomDrop() {
+//		topObstacles.get(26).setY(topObstacles.get(26).getY() + (463 - bottomObstacles.get(26).getY()));
+//		bottomObstacles.get(26).setY(463);
+//	}
 
-	public void moveDown() {
-//		topObstacles.set((NUM_OBSTACLES - 1),
-//				new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1), topObstacles.get(26).getY() + moveIncrement));
-		bottomObstacles.set((NUM_OBSTACLES - 1), new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1),
-				bottomObstacles.get(26).getY() + moveIncrement));
-	}
+//	public void moveDown() {
+////		topObstacles.set((NUM_OBSTACLES - 1),
+////				new MovingImage("Obstacle.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1), topObstacles.get(26).getY() + moveIncrement));
+//		bottomObstacles.set((NUM_OBSTACLES - 1), new MovingImage("Obstacle.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1),
+//				bottomObstacles.get(26).getY() + moveIncrement));
+//	}
 
-	public void moveUp() {
-//		bottomObstacles.set((NUM_OBSTACLES - 1), new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1),
-//				bottomObstacles.get(26).getY() - moveIncrement));
-//		topObstacles.set((NUM_OBSTACLES - 1),
-//				new MovingImage("CeilingFloor.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1), topObstacles.get(26).getY() - moveIncrement));
-	}
+//	public void moveUp() {
+////		bottomObstacles.set((NUM_OBSTACLES - 1), new MovingImage("Obstacle.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1),
+////				bottomObstacles.get(26).getY() - moveIncrement));
+////		topObstacles.set((NUM_OBSTACLES - 1),
+////				new MovingImage("Obstacle.png", OBSTACLE_WIDTH * (NUM_OBSTACLES - 1), topObstacles.get(26).getY() - moveIncrement));
+//	}
 
 	public int randomMidHeight() {
 		int max = 10000;
@@ -285,40 +284,45 @@ public class GameGUI implements MouseListener {
 		return min + (int) (Math.random() * max);
 	}
 
-	// moves the randomly generated middle rectangles
+	// moves the randomly generated middle obstacles.
+	//Use a linear eq that constantly makes the obstacles get genereated faster.
+	//As distance increases, the difficulty increases.
 	public void updateMiddle() {
-		if (middleObstacles.get(0).getX() > -1 * OBSTACLE_WIDTH) {
-			middleObstacles.set(0, new MovingImage("CeilingFloor.png", middleObstacles.get(0).getX() - (OBSTACLE_WIDTH / 5),
-					middleObstacles.get(0).getY()));
-			middleObstacles.set(1, new MovingImage("CeilingFloor.png", middleObstacles.get(1).getX() - (OBSTACLE_WIDTH / 5),
-					middleObstacles.get(1).getY()));
+		if (obstacles.get(0).getX() > -1 * OBSTACLE_WIDTH) {
+			obstacles.set(0, new MovingImage("Obstacle.png", obstacles.get(0).getX() - (OBSTACLE_WIDTH / (-0.003 * distance + 5)),
+					obstacles.get(0).getY()));
+			obstacles.set(1, new MovingImage("Obstacle.png", obstacles.get(1).getX() - (OBSTACLE_WIDTH / (-0.003 * distance + 5)),
+					obstacles.get(1).getY()));
 		} else {
-			middleObstacles.set(0, new MovingImage("CeilingFloor.png", middleObstacles.get(1).getX() - (OBSTACLE_WIDTH / 5),
-					middleObstacles.get(1).getY()));
-			middleObstacles.set(1, new MovingImage("CeilingFloor.png", middleObstacles.get(0).getX() + 580, randomMidHeight()));
+			obstacles.set(0, new MovingImage("Obstacle.png", obstacles.get(1).getX() - (OBSTACLE_WIDTH / (-0.003 * distance + 5)),
+					obstacles.get(1).getY()));
+			obstacles.set(1, new MovingImage("Obstacle.png", obstacles.get(0).getX() + 580, randomMidHeight()));
 		}
 	}
 
-	public boolean isInMidRange(int num) {
-		Rectangle middlecheck = new Rectangle((int) middleObstacles.get(num).getX(), (int) middleObstacles.get(num).getY(),
+	//Check to see if the obstacle and the fighter ship are at the same coordinates on the screen.
+	//If they are, then the fighter ship is hit by an obstacle.
+	public boolean isInMidRange(int num) {  
+		Rectangle middleCheck = new Rectangle((int) obstacles.get(num).getX(), (int) obstacles.get(num).getY(),
 				OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
-		Rectangle coptercheck = new Rectangle((int) Fighter.getX(), (int) Fighter.getY(), 106, 48);
-		return middlecheck.intersects(coptercheck);
+		Rectangle fighterCheck = new Rectangle((int) Fighter.getX(), (int) Fighter.getY(), 145, 48);
+		return middleCheck.intersects(fighterCheck);
 	}
 
 	// moves the Fighter
 	public void updateFighter() {
-		upCount += .08;
-		if (goingUp) {
-			if (upCount < 3.5)
+		upCount += .08;  //Increment the upCount
+		if (goingUp) { //If the mouse is pressed
+			if (upCount < 3.5)  //If the mouse is pressed for less time, the fighter moves slower
 				Fighter.setPosition(X_POSITION, (double) (Fighter.getY() - (.3 + upCount)));
-			else
+			else  //If the mouse is pressed longer, the fighter moves faster upward
 				Fighter.setPosition(X_POSITION, (double) (Fighter.getY() - (1.2 + upCount)));
 			Fighter.setImage("XWingFighter.png");
-		} else {
-			if (upCount < 1)
+		}
+		else {  //If the mouse is released, the fighter moves downward
+			if (upCount < 1)  //If mouse is released for short amount of time, decelerate slower
 				Fighter.setPosition(X_POSITION, (double) (Fighter.getY() + upCount));
-			else
+			else //If mouse is released for longer amount of time, decelerate faster
 				Fighter.setPosition(X_POSITION, (double) (Fighter.getY() + (1.2 + upCount)));
 			Fighter.setImage("XWingFighter.png");
 		}
@@ -337,11 +341,16 @@ public class GameGUI implements MouseListener {
 	}
 
 	public boolean isHit() {
-		for (int x = 3; x <= 7; x++)
+//		for (int x = 3; x <= 7; x++)
 			//Determines the lowest the ship can go
-			if (Fighter.getY() + 48 >= bottomObstacles.get(x).getY())
-				return true;
+//			if (Fighter.getY() + 48 >= bottomObstacles.get(x).getY())
+//				return true;
+			
 		if (Fighter.getY() <= 70){
+			return true;
+		}
+		
+		if (Fighter.getY() >= 455){
 			return true;
 		}
 //		for (int y = 3; y <= 7; y++)
@@ -358,7 +367,7 @@ public class GameGUI implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 
 		if (started) {
-			//paused = true;
+			paused = true;
 			// move.close();
 		}
 

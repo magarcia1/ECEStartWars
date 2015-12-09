@@ -18,7 +18,7 @@ class ImagePanel extends JPanel {
 	private ArrayList<MovingImage> top; // An array list of foreground images
 	private ArrayList<MovingImage> bottom;
 	private ArrayList<MovingImage> middle;
-	private MovingImage copter;
+	private MovingImage fighter;
 	private ArrayList<MovingImage> smoke;
 	private ArrayList<MovingImage> bar;
 
@@ -66,8 +66,8 @@ class ImagePanel extends JPanel {
 			g.drawImage(img.getImage(), (int) (img.getX()), (int) (img.getY()), null);
 		for (MovingImage img : bar)
 			g.drawImage(img.getImage(), (int) (img.getX()), (int) (img.getY()), null);
-		if (copter != null)
-			g.drawImage(copter.getImage(), (int) (copter.getX()), (int) (copter.getY()), null);
+		if (fighter != null)
+			g.drawImage(fighter.getImage(), (int) (fighter.getX()), (int) (fighter.getY()), null);
 		drawStrings(g);
 	}
 	
@@ -94,9 +94,9 @@ class ImagePanel extends JPanel {
 
 	// Replaces the list of foreground images with the one given, and repaints
 	// the panel
-	public void updateImages(ArrayList<MovingImage> newMiddle,MovingImage newCopter, ArrayList<MovingImage> newSmoke, ArrayList<MovingImage> newBar) {
+	public void updateImages(ArrayList<MovingImage> newMiddle,MovingImage newFighter, ArrayList<MovingImage> newSmoke, ArrayList<MovingImage> newBar) {
 
-		copter = newCopter;
+		fighter = newFighter;
 		middle = newMiddle;
 		//bottom = newBottom;
 		smoke = newSmoke;
