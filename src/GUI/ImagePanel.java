@@ -21,7 +21,7 @@ class ImagePanel extends JPanel {
 	private MovingImage fighter;
 	private ArrayList<MovingImage> smoke;
 	private ArrayList<MovingImage> bar;
-
+	String theRank = "";
 
 	// Constructs a new ImagePanel with the background image specified by the
 	// file path given
@@ -74,15 +74,22 @@ class ImagePanel extends JPanel {
 	//Draw string method is used to draw the distance(score) and the maximum distance(record) of
 	//the user. In addition, this method is useful to display that the Game is on pause mode. 
 	public void drawStrings(Graphics g) {
+
 		g.setFont(new Font("Arial", Font.BOLD, 20));
 		g.setColor(Color.WHITE);
 		g.drawString("Distance: " + GameGUI.distance, 30, 540);
 		g.setFont(new Font("Arial", Font.BOLD, 20));
 		g.setColor(Color.WHITE);
-		if (GameGUI.distance > GameGUI.maxDistance)
+		if (GameGUI.distance > GameGUI.maxDistance){
 			g.drawString("Best: " + GameGUI.distance, 850, 500);
-		else
-			g.drawString("Best: " + GameGUI.maxDistance, 850, 540);
+			g.drawString("Rank: " + GameGUI.maxRank, 850, 540);
+
+			
+		}
+		else{
+			g.drawString("Best: " + GameGUI.maxDistance, 850, 500);
+			g.drawString("Rank: " + theRank, 850, 540);
+		}
 		if (GameGUI.paused) {
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Chiller", Font.BOLD, 72));
@@ -93,16 +100,20 @@ class ImagePanel extends JPanel {
 		g.setFont(new Font("Arial", Font.BOLD, 20));
 		g.setColor(Color.WHITE);
 		if (GameGUI.distance < 200){
-			g.drawString("Rank: Youngling", 400, 540);
+			theRank = "Youngling";
+			g.drawString("Rank: " + theRank, 400, 540);
 		}
 		else if (GameGUI.distance >= 200 && GameGUI.distance < 500){
-			g.drawString("Rank: Padawan", 400, 540);
+			theRank = "Padawan";
+			g.drawString("Rank: " + theRank, 400, 540);
 		}
-		else if(GameGUI.distance >= 500 && GameGUI.distance < 1000){
-			g.drawString("Rank: Jedi Knight", 400, 540);
+		else if (GameGUI.distance >= 500 && GameGUI.distance < 1000){
+			theRank = "Jedi Knight";
+			g.drawString("Rank: " + theRank, 400, 540);
 		}
 		else {
-			g.drawString("Rank: Jedi Master", 400, 540);
+			theRank = "Jedi Master";
+			g.drawString("Rank: " + theRank, 400, 540);
 		}
 	}
 

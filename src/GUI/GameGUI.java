@@ -49,6 +49,7 @@ public class GameGUI implements MouseListener {
 
 	public static int distance;
 	public static int maxDistance;
+	public static String maxRank;
 
 	public final int X_POSITION;
 	public final int NUM_OBSTACLES;
@@ -81,8 +82,11 @@ public class GameGUI implements MouseListener {
 			Scanner reader = new Scanner(file);
 			while (reader.hasNext()) {
 				int value = reader.nextInt();
-				if (value > maxDistance)
+				String theRank = reader.next();
+				if (value > maxDistance) {
 					maxDistance = value;
+					maxRank = theRank;
+				}
 			}
 		} catch (IOException i) {
 			System.out.println("Error. " + i);
@@ -94,7 +98,7 @@ public class GameGUI implements MouseListener {
 		FileWriter out;
 		try {
 			out = new FileWriter("Best.txt");
-			out.write("" + maxDistance);
+			out.write("" + maxDistance + " " + maxRank);
 			out.close();
 		} catch (IOException i) {
 			System.out.println("Error: " + i.getMessage());
