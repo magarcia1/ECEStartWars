@@ -36,8 +36,6 @@ import javax.swing.JFrame;
 
 public class GameGUI implements MouseListener {
 	private JFrame background;
-	// private Container container;
-	// private JButton button;
 
 	private ImagePanel back;
 
@@ -57,11 +55,8 @@ public class GameGUI implements MouseListener {
 	public final int OBSTACLE_HEIGHT;
 	public final int OBSTACLE_WIDTH;
 
-	private int moveIncrement;
 	private int numSmoke;
 
-	private ArrayList<MovingImage> topObstacles;
-	private ArrayList<MovingImage> bottomObstacles;
 	private ArrayList<MovingImage> obstacles;
 	private ArrayList<MovingImage> smoke;
 	private MovingImage Fighter;
@@ -94,6 +89,7 @@ public class GameGUI implements MouseListener {
 		}
 	}
 
+	//Save the newest high score to the "Best.txt" file
 	public void save() {
 		FileWriter out;
 		try {
@@ -140,23 +136,16 @@ public class GameGUI implements MouseListener {
 		distance = 0;
 		upCount = 0.0;
 
-		moveIncrement = 2;
 		numSmoke = 15;
 		
 		bar = new ArrayList<MovingImage>();//TODO:
 		obstacles = new ArrayList<MovingImage>();
-		//topObstacles = new ArrayList<MovingImage>();
 		obstacles = new ArrayList<MovingImage>();
-		bottomObstacles = new ArrayList<MovingImage>();
 		smoke = new ArrayList<MovingImage>();
 
 		Fighter = new MovingImage("XWingFighter.png", X_POSITION, 270);
 		bar.add( new MovingImage("bar.jpg", 0, 0));
 		bar.add( new MovingImage("bar.jpg", 0, 501));
-//		for (int x = 0; x < NUM_OBSTACLES; x++)
-//			topObstacles.add(new MovingImage("Obstacle.png", OBSTACLE_WIDTH * x, 10));
-		for (int x = 0; x < NUM_OBSTACLES; x++)
-			bottomObstacles.add(new MovingImage("Obstacle.png", OBSTACLE_WIDTH * x, 501));
 
 		obstacles.add(new MovingImage("Obstacle.png", 1392, randomMidHeight()));
 		obstacles.add(new MovingImage("Obstacle.png", 1972, randomMidHeight()));
@@ -165,7 +154,6 @@ public class GameGUI implements MouseListener {
 	}
 
 	public void drawObstacles() {
-//		long obstacleTimeCounter = System.currentTimeMillis();
 		long lastCopter = System.currentTimeMillis();
 		long lastSmoke = System.currentTimeMillis();
 		// long lastSound = System.currentTimeMillis();
@@ -270,15 +258,15 @@ public class GameGUI implements MouseListener {
 //	}
 
 	public int randomMidHeight() {
-		int max = 10000;
-		int min = 0;
+		int max = 500; //Bottom of playable screen
+		int min = 0;  //Top of playable screen
 
-		for (int x = 0; x < NUM_OBSTACLES; x++) {
-//			if (topObstacles.get(x).getY() > min)
-//				min = (int) topObstacles.get(x).getY();
-			if (bottomObstacles.get(x).getY() < max)
-				max = (int) bottomObstacles.get(x).getY();
-		}
+//		for (int x = 0; x < NUM_OBSTACLES; x++) {
+////			if (topObstacles.get(x).getY() > min)
+////				min = (int) topObstacles.get(x).getY();
+//			if (bottomObstacles.get(x).getY() < max)
+//				max = (int) bottomObstacles.get(x).getY();
+//		}
 		min += OBSTACLE_HEIGHT;
 		max -= (OBSTACLE_HEIGHT + min);
 		return min + (int) (Math.random() * max);
@@ -289,12 +277,12 @@ public class GameGUI implements MouseListener {
 	//As distance increases, the difficulty increases.
 	public void updateMiddle() {
 		if (obstacles.get(0).getX() > -1 * OBSTACLE_WIDTH) {
-			obstacles.set(0, new MovingImage("Obstacle.png", obstacles.get(0).getX() - (OBSTACLE_WIDTH / (-0.003 * distance + 5)),
+			obstacles.set(0, new MovingImage("Obstacle.png", obstacles.get(0).getX() - (OBSTACLE_WIDTH / (-0.001 * distance + 5)),
 					obstacles.get(0).getY()));
-			obstacles.set(1, new MovingImage("Obstacle.png", obstacles.get(1).getX() - (OBSTACLE_WIDTH / (-0.003 * distance + 5)),
+			obstacles.set(1, new MovingImage("Obstacle.png", obstacles.get(1).getX() - (OBSTACLE_WIDTH / (-0.001 * distance + 5)),
 					obstacles.get(1).getY()));
 		} else {
-			obstacles.set(0, new MovingImage("Obstacle.png", obstacles.get(1).getX() - (OBSTACLE_WIDTH / (-0.003 * distance + 5)),
+			obstacles.set(0, new MovingImage("Obstacle.png", obstacles.get(1).getX() - (OBSTACLE_WIDTH / (-0.001 * distance + 5)),
 					obstacles.get(1).getY()));
 			obstacles.set(1, new MovingImage("Obstacle.png", obstacles.get(0).getX() + 580, randomMidHeight()));
 		}
