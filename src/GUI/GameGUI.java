@@ -166,7 +166,7 @@ public class GameGUI implements MouseListener {
 	}
 
 	public void drawObstacles() {
-		long last = System.currentTimeMillis();
+		long obstacleTimeCounter = System.currentTimeMillis();
 		long lastCopter = System.currentTimeMillis();
 		long lastSmoke = System.currentTimeMillis();
 		// long lastSound = System.currentTimeMillis();
@@ -179,39 +179,41 @@ public class GameGUI implements MouseListener {
 			// our ship since is moving. We do also have to update the distance 
 			// to the distance we currently are
 			//This also sets how fast the distance will increment
-			if (!paused && !crashed && started
-					&& (double) System.currentTimeMillis() - (double) (2900 / 40) > lastDistance) {
-				lastDistance = System.currentTimeMillis();  // updating the
-															// distance to be the
-															// distance in where
-															// we are
-				distance++; // the more distance the more the points
-			}
+			if (!paused && !crashed && started ) {
+				
+				if( (double) System.currentTimeMillis() - (double) (2900 / 40) > lastDistance) {
+					lastDistance = System.currentTimeMillis();  // updating the
+					// distance to be the
+					// distance in where
+					// we are
+					distance++; // the more distance the more the points
+				}
 
-			if (!paused && !crashed && started && System.currentTimeMillis() - 8 > lastCopter) {
-				lastCopter = System.currentTimeMillis();
-				updateFighter();
-				updateMiddle();
-			}
-			if (!paused && !crashed && started && System.currentTimeMillis() - 100 > last) {
-				last = System.currentTimeMillis();
-				updateObstacles();
-			}
-			//controls the movement of the smoke in the fighter ship
-			if (!paused && !crashed && started && System.currentTimeMillis() - 75 > lastSmoke) {
-				lastSmoke = System.currentTimeMillis();
-				if (firstUpdates < numSmoke) {
-					firstUpdates++;
-					smoke.add(new MovingImage("smoke.GIF", 187, Fighter.getY()));
-					//setting the location of the specific smoke in the JFrame on the location it has to go
-					for (int x = 0; x < firstUpdates; x++)
-						smoke.set(x, new MovingImage("smoke.GIF", smoke.get(x).getX() - 12, smoke.get(x).getY()));
-				} else {
-					//It is important to know that the # of smokes is limited; however, the program makes the user
-					//believe there is unlimited smokes
-					for (int x = 0; x < numSmoke - 1; x++)
-						smoke.get(x).setY(smoke.get(x + 1).getY());
-					smoke.set(numSmoke - 1, new MovingImage("smoke.GIF", 187, Fighter.getY()));
+				if (System.currentTimeMillis() - 8 > lastCopter) {
+					lastCopter = System.currentTimeMillis();
+					updateFighter();
+					updateMiddle();
+				}
+				if (System.currentTimeMillis() - 100 > obstacleTimeCounter) {
+					obstacleTimeCounter = System.currentTimeMillis();
+					updateObstacles();
+				}
+				//controls the movement of the smoke in the fighter ship
+				if (System.currentTimeMillis() - 75 > lastSmoke) {
+					lastSmoke = System.currentTimeMillis();
+					if (firstUpdates < numSmoke) {
+						firstUpdates++;
+						smoke.add(new MovingImage("smoke.GIF", 187, Fighter.getY()));
+						//setting the location of the specific smoke in the JFrame on the location it has to go
+						for (int x = 0; x < firstUpdates; x++)
+							smoke.set(x, new MovingImage("smoke.GIF", smoke.get(x).getX() - 12, smoke.get(x).getY()));
+					} else {
+						//It is important to know that the # of smokes is limited; however, the program makes the user
+						//believe there is unlimited smokes
+						for (int x = 0; x < numSmoke - 1; x++)
+							smoke.get(x).setY(smoke.get(x + 1).getY());
+						smoke.set(numSmoke - 1, new MovingImage("smoke.GIF", 187, Fighter.getY()));
+					}
 				}
 			}
 			//Repaints the JFrame with the new information
